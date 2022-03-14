@@ -65,13 +65,15 @@ public class BootmNavigationBarActivity extends AppCompatActivity implements Bot
             bundle.putInt("total_page", total_page);
 
                 fragment1.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment1).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment1).addToBackStack("1").commit();
                 tag="1";
                 return true;
 
 
             case R.id.home:
+                if(tag.equals("4")){
 
+                }
                 Bundle bundle1 = new Bundle();
                 bundle1.putInt("person_id", 0);
                 bundle1.putString("name","");
@@ -80,13 +82,13 @@ public class BootmNavigationBarActivity extends AppCompatActivity implements Bot
                 bundle1.putString("status","");
                 bundle1.putString("comment","");
                 fragment2.setArguments(bundle1);
-                getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment2).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment2).addToBackStack("2").commit();
                 tag="2";
                 return true;
 
             case R.id.settings:
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment3).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment3).addToBackStack("3").commit();
                 tag="3";
                 return true;
 
@@ -98,12 +100,21 @@ public class BootmNavigationBarActivity extends AppCompatActivity implements Bot
     @Override
     public void onBackPressed() {
 
-        if(tag.equals("1")){
-            super.onBackPressed();
-        }
 
+        if(getSupportFragmentManager().getBackStackEntryCount()==1){
+            finish();
+        }
+      /*  else if(getSupportFragmentManager().getBackStackEntryCount()==1){
+            bottomNavigationView.setSelectedItemId(R.id.home);
+            getSupportFragmentManager().popBackStack();
+        }
+        else if (getSupportFragmentManager().getBackStackEntryCount()==2){
+            bottomNavigationView.setSelectedItemId(R.id.settings);
+            getSupportFragmentManager().popBackStack();
+        }*/
         else {
             getSupportFragmentManager().popBackStack();
+        //bottomNavigationView.setSelectedItemId(bottomNavigationView.getSelectedItemId());
         }
 
     }
@@ -119,11 +130,11 @@ public class BootmNavigationBarActivity extends AppCompatActivity implements Bot
         bundle.putString("status",status);
         bundle.putString("comment",comment);
 
-
+        bottomNavigationView.setSelectedItemId(R.id.home);
         fragment2.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment2).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.flFragment, fragment2).addToBackStack("2").commit();
         tag ="4";
-        return;
+
 
     }
 
