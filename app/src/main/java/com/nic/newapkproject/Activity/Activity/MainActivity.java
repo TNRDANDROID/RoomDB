@@ -1,6 +1,7 @@
 package com.nic.newapkproject.Activity.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -31,6 +32,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     Button go;
+    CardView download_layout;
     ProgressDialog pd;
     int total_page;
     @Override
@@ -39,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         go = findViewById(R.id.go);
+        download_layout = findViewById(R.id.download_layout);
         go.setVisibility(View.GONE);
+
         getPersonDetails(1);
         go.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -178,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
                    /* if (pd.isShowing()) {
                         pd.dismiss();
                     }*/
+                    download_layout.setVisibility(View.GONE);
                     go.setVisibility(View.VISIBLE);
                 }
 
@@ -205,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
             protected void onPostExecute(List<PersonDetails> personDetails) {
                 super.onPostExecute(personDetails);
                 if(personDetails.size()>0){
+                    download_layout.setVisibility(View.GONE);
                     go.setVisibility(View.VISIBLE);
                 }
                 else {
